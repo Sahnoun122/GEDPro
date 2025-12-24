@@ -23,11 +23,14 @@ export class User {
     lastname: string;
 
     @Column({unique : true})
-    eamil: string;
+    email: string;
 
     @Column({type : 'enum',
         enum : Role
     })
+
+    @Column()
+     password : string
 
     role: Role;
 
