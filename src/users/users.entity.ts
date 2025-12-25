@@ -1,12 +1,15 @@
+import { Organisation } from 'src/organisation/organisation.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 export enum Role {
-  amin_rh = 'admin_rh',
+  admin_rh = 'admin_rh',
   rh = 'rh',
   manager = 'manager',
 }
@@ -16,8 +19,9 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-//   @Column()
-//   organisation_id: string;
+  @ManyToOne(() => Organisation, { nullable: false })
+  @JoinColumn({ name: 'organisation_id' })
+  organisation: Organisation;
 
   @Column()
   firstname: string;
@@ -29,10 +33,10 @@ export class User {
   email: string;
 
   @Column({ type: 'enum', enum: Role })
+  role: Role;
+
   @Column()
   password: string;
-
-  role: Role;
 
   @Column({ default: true })
   is_active: boolean;

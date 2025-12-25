@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/users.entity';
+import { Organisation } from './organisation/organisation.entity';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { User } from './users/users.entity';
       username: 'postgres',
       password: '123456',
       database: 'GedPro',
-      entities: [User],
+      entities: [User , Organisation],
       synchronize: true,
     }),
     MongooseModule.forRoot('mongodb://localhost/GedPro'),

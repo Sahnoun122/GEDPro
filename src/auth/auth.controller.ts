@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { loginDto } from './dto/login.dto';
 import { dot } from 'node:test/reporters';
+import { User } from 'src/users/users.entity';
 @Controller('auth')
 export class AuthController {
   constructor(private AuthService: AuthService) {}
