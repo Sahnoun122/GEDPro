@@ -1,38 +1,29 @@
-import { Organisation } from 'src/organisation/organisation.entity';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
-export enum Type {
-  text = 'text',
-  email = 'email',
-  number = 'number',
-  file = 'file',
-  select = 'select',
-  date = 'date',
-}
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  CreateDateColumn,
+} from 'typeorm';
+import { FieldEntity } from './fields/field.entity';
 
 @Entity('forms')
-export class Forms {
+export class FormEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @PrimaryGeneratedColumn('uuid')
-  form_id: string;
-
-  @Column({ default: false })
-  required: boolean;
-
-  @Column('simple-array')
-  options: string[];
-
-  @Column({ type: 'enum', enum: Type })
-  type: Type;
-
   @Column()
-  label: string;
+  title: string;
 
-  @Column()
-  order: Number;
+  @Column({ nullable: true })
+  description: string;
 
-  @Column()
-  created_at: Date;
+  @Column({ default: true })
+  isActive: boolean;
+
+  @OneToMany(() => FieldEntity, (field) => field.form)
+  fields: FieldEntity[];
+
+  @CreateDateColumn()
+  createdAt: Date;
 }
