@@ -36,4 +36,15 @@ export class FormsService {
 
     return this.fieldRepo.save(field);
   }
+  getFormWithFields(id: string) {
+    return this.formRepo.findOne({
+      where: { id },
+      relations: ['fields'],
+      order: {
+        fields: {
+          order: 'ASC',
+        },
+      },
+    });
+  }
 }
