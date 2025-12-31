@@ -1,25 +1,42 @@
-import { Controller, Post, Body, Param, Get } from '@nestjs/common';
-import { FormsService } from './form.service';
-import { CreateFormDto } from './fields/dto/create-form.dto';
-import { CreateFieldDto } from './fields/dto/create-field.dto';
-
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
+import { FormService } from './form.service';
+import { CreateFormDto } from './dto/create-form.dto';
+import { UpdateFormDto } from './dto/update-form.dto';
 
 @Controller('forms')
-export class FormsController {
-  constructor(private readonly service: FormsService) {}
+export class FormController {
+  constructor(private readonly service: FormService) {}
 
   @Post()
-  createForm(@Body() dto: CreateFormDto) {
-    return this.service.createForm(dto);
+  create(@Body() dto: CreateFormDto) {
+    return this.service.create(dto);
   }
 
-  @Post(':id/fields')
-  addField(@Param('id') formId: string, @Body() dto: CreateFieldDto) {
-    return this.service.addField(formId, dto);
+  @Get()
+  findAll() {
+    return this.service.findAll();
   }
 
   @Get(':id')
-  getForm(@Param('id') id: string) {
-    return this.service.getFormWithFields(id);
+  findOne(@Param('id') id: string) {
+    return this.service.findOne(id);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateFormDto) {
+    return this.service.update(id, dto);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.service.delete(id);
   }
 }

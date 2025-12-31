@@ -1,50 +1,38 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { FormEntity } from "./form.entity";
-import { FieldEntity } from "./fields/field.entity";
-import { CreateFormDto } from "./fields/dto/create-form.dto";
-import { CreateFieldDto } from "./fields/dto/create-field.dto";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { FormEntity } from './form.entity';
+import { CreateFormDto } from './dto/create-form.dto';
+import { UpdateFormDto } from './dto/update-form.dto';
+
 @Injectable()
-export class FormsService {
+export class FormService {
   constructor(
     @InjectRepository(FormEntity)
     private formRepo: Repository<FormEntity>,
-
-    @InjectRepository(FieldEntity)
-    private fieldRepo: Repository<FieldEntity>,
   ) {}
 
-  createForm(dto: CreateFormDto) {
+  create(dto: CreateFormDto) {
     const form = this.formRepo.create(dto);
     return this.formRepo.save(form);
   }
 
-  async addField(formId: string, dto: CreateFieldDto) {
-    const form = await this.formRepo.findOne({
-      where: { id: formId },
-    });
-
-    if (!form) {
-      throw new Error('Form not found');
-    }
-
-    const field = this.fieldRepo.create({
-      ...dto,
-      form,
-    });
-
-    return this.fieldRepo.save(field);
+  findAll() {
+    return this.formRepo.find();
   }
-  getFormWithFields(id: string) {
+
+  findOne(id: string) {
     return this.formRepo.findOne({
       where: { id },
       relations: ['fields'],
-      order: {
-        fields: {
-          order: 'ASC',
-        },
-      },
     });
+  }
+
+  update(id: string, dto: UpdateFormDto) {
+    return this.formRepo.update(id, dto);
+  }
+
+  delete(id: string) {
+    return this.formRepo.delete(id);
   }
 }
