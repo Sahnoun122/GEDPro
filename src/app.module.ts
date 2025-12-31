@@ -9,7 +9,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/users.entity';
 import { Organisation } from './organisation/organisation.entity';
-
+import { FormModule } from './forms/form.module';
+import { FormEntity } from './forms/form.entity';
+import { FieldEntity } from './forms/fields/field.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -19,12 +21,13 @@ import { Organisation } from './organisation/organisation.entity';
       username: 'postgres',
       password: '123456',
       database: 'GedPro',
-      entities: [User , Organisation],
+      entities: [User , Organisation , FormEntity , FieldEntity],
       synchronize: true,
     }),
     MongooseModule.forRoot('mongodb://localhost/GedPro'),
     UsersModule,
     AuthModule,
+    FormModule
   ],
   controllers: [AppController],
   providers: [AppService],
