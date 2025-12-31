@@ -1,4 +1,9 @@
-export class CreateFormDto {
-  title: string;
-  description?: string;
+import { FieldType } from "../field.entity";
+
+export class CreateFieldDto {
+  label: string;
+  type: FieldType;
+  required: boolean;
+  options?: string[];
+  order: number;
 }
