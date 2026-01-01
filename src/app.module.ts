@@ -15,6 +15,7 @@ import { FieldEntity } from './forms/fields/field.entity';
 import { FieldModule } from './forms/fields/field.module';
 import { ResponseModule } from './responses/response.module';
 import { ResponseEntity } from './responses/response.entity';
+import { MinioModule } from './minio/minio.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -32,7 +33,8 @@ import { ResponseEntity } from './responses/response.entity';
     AuthModule,
     FormModule,
     FieldModule,
-    ResponseModule
+    ResponseModule,
+    MinioModule
   ],
   controllers: [AppController],
   providers: [AppService],
