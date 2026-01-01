@@ -12,6 +12,9 @@ import { Organisation } from './organisation/organisation.entity';
 import { FormModule } from './forms/form.module';
 import { FormEntity } from './forms/form.entity';
 import { FieldEntity } from './forms/fields/field.entity';
+import { FieldModule } from './forms/fields/field.module';
+import { ResponseModule } from './responses/response.module';
+import { ResponseEntity } from './responses/response.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -21,13 +24,15 @@ import { FieldEntity } from './forms/fields/field.entity';
       username: 'postgres',
       password: '123456',
       database: 'GedPro',
-      entities: [User , Organisation , FormEntity , FieldEntity],
+      entities: [User, Organisation, FormEntity, FieldEntity ,ResponseEntity],
       synchronize: true,
     }),
     MongooseModule.forRoot('mongodb://localhost/GedPro'),
     UsersModule,
     AuthModule,
-    FormModule
+    FormModule,
+    FieldModule,
+    ResponseModule
   ],
   controllers: [AppController],
   providers: [AppService],

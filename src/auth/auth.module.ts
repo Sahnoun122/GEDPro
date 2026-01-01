@@ -13,9 +13,12 @@ import { OrganisationModule } from 'src/organisation/organisation.module';
       secret: 'SECRET',
       signOptions: { expiresIn: '1d' },
     }),
-    AuthModule,
   ],
   providers: [AuthService],
   controllers: [AuthController],
+  exports: [
+    JwtModule, 
+    AuthService,
+  ],
 })
 export class AuthModule {}
