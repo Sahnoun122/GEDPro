@@ -29,7 +29,7 @@ export class MinioController {
   @UseInterceptors(FileInterceptor('file'))
   async upload(
     @UploadedFile() file: Express.Multer.File,
-    @Body('bucket') bucket: string, // bucket men body
+    @Body('bucket') bucket: string,
   ) {
     const result = await this.minio.upload(
       bucket,
