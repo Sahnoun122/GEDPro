@@ -8,6 +8,7 @@ import {
   Res,
   Delete,
   UseGuards,
+  Body
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MinioService } from './minio.service';
@@ -22,12 +23,13 @@ import type { Response } from 'express';
 export class MinioController {
   constructor(private readonly minio: MinioService) {}
 
-  @Post('upload/:bucket')
+  @Post('upload')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.admin_rh, Role.rh)
   @UseInterceptors(FileInterceptor('file'))
   async upload(
-    @Param('bucket') bucket: string,
     @UploadedFile() file: Express.Multer.File,
+    @Body('bucket') bucket: string, // bucket men body
   ) {
     const result = await this.minio.upload(
       bucket,
