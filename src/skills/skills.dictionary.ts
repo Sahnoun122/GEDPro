@@ -1,0 +1,15 @@
+export const SKILLS = [
+  'PHP',
+  'Laravel',
+  'NestJS',
+  'Node.js',
+  'React',
+  'Angular',
+  'Docker',
+  'MySQL',
+  'PostgreSQL',
+  'MongoDB',
+  'Python',
+  'Java',
+  'Excel',
+];
