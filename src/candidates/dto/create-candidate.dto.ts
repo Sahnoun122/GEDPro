@@ -2,7 +2,10 @@ import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateCandidateDto {
   @IsNotEmpty()
-  fullName: string;
+  firstname: string;
+
+  @IsNotEmpty()
+  lastname: string;
 
   @IsEmail()
   email: string;

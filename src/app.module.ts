@@ -17,6 +17,7 @@ import { ResponseModule } from './responses/response.module';
 import { ResponseEntity } from './responses/response.entity';
 import { MinioModule } from './minio/minio.module';
 import { CandidatesModule } from './candidates/candidate.module';
+import { Candidate } from './candidates/entities/candidate.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -26,7 +27,14 @@ import { CandidatesModule } from './candidates/candidate.module';
       username: 'postgres',
       password: '123456',
       database: 'GedPro',
-      entities: [User, Organisation, FormEntity, FieldEntity ,ResponseEntity],
+      entities: [
+        User,
+        Organisation,
+        FormEntity,
+        FieldEntity,
+        ResponseEntity,
+        Candidate,
+      ],
       synchronize: true,
     }),
     MongooseModule.forRoot('mongodb://localhost/GedPro'),
@@ -36,7 +44,7 @@ import { CandidatesModule } from './candidates/candidate.module';
     FieldModule,
     ResponseModule,
     MinioModule,
-    CandidatesModule
+    CandidatesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
