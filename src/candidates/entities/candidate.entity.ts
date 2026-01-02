@@ -34,6 +34,12 @@ export class Candidate {
   })
   status: CandidateStatus;
 
+  @Column({ type: 'text', nullable: true })
+  resume_text: string;
+
+  @Column('simple-array', { nullable: true })
+  skills: string[];
+
   @CreateDateColumn()
   createdAt: Date;
 }
